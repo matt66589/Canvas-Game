@@ -25,6 +25,7 @@
                 width: 10,
                 xPos: 160,
                 yPos: 425,
+                speed: 2,
                 draw: function(x, y, h, w){
                     ctx.fillRect(x, y, h, w);
                 },
@@ -32,9 +33,9 @@
             
             arrow = {
                 l: 37,
-                u: 38,
+                d: 38,
                 r: 39,
-                d: 40,
+                u: 40,
             };
             
             piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
@@ -45,23 +46,27 @@
                 switch (event.keyCode)
                 {
                     case arrow.l :
-                        piece.width = piece.width - 1;
-                        //draw function here
+                        clear();
+                        piece.xPos = piece.xPos - piece.speed;
+                        piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
                         break;
                     
                     case arrow.r :
-                        piece.width++;
-                        //draw function here
+                        clear();
+                        piece.xPos = piece.xPos + piece.speed;
+                        piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
                         break;
                         
                     case arrow.u :
-                        piece.height++;
-                        //draw function here
+                        clear();
+                        piece.yPos = piece.yPos + piece.speed;
+                        piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
                         break;
                         
                     case arrow.d :
-                        piece.height = piece.height - 1;
-                        //draw function here
+                        clear();
+                        piece.yPos = piece.yPos - piece.speed;
+                        piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
                         break;
                 }
             });
@@ -78,6 +83,11 @@
         {
             canvas.height = 450;
             canvas.width = 350;
+        }
+        
+        function clear()
+        {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
         
     })();

@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Try jQuery Online</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<title>Try me s</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <script>
     (function(){
         $(document).ready(main);
@@ -11,14 +14,16 @@
         var ctx;
         var piece;
         var arrow;
-        
+        var display;
         // Make a projectile var and make a new instance of it every time it is shot
         
         function main()
         {
             canvas = document.getElementById('screen');
             ctx = canvas.getContext('2d');
-            
+            display = document.getElementById('displayArea');
+            displayIt("canvas context and display defined");
+
             setCanvasDimensions();
             
             piece = 
@@ -42,33 +47,39 @@
             
             piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
             
+            displayIt("piece is drawn for the first time");
+
             ////////////////////////////////////////////////////////////////
             
-            $(this).on('keypress', function(event){
-                switch (event.keyCode)
+            $(document).keypress(function(event){
+                switch (event.which)
                 {
                     case arrow.l :
                         clear();
                         piece.xPos = piece.xPos - piece.speed;
                         piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
+                        displayIt("left arrow is clicked");
                         break;
                     
                     case arrow.r :
                         clear();
                         piece.xPos = piece.xPos + piece.speed;
                         piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
+                        displayIt("right arrow is clicked");
                         break;
                         
                     case arrow.u :
                         clear();
                         piece.yPos = piece.yPos + piece.speed;
                         piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
+                        displayIt("up arrow is clicked");
                         break;
                         
                     case arrow.d :
                         clear();
                         piece.yPos = piece.yPos - piece.speed;
                         piece.draw(piece.xPos, piece.yPos, piece.width, piece.height);
+                        displayIt("down arrow is clicked");
                         break;
                 }
             });
@@ -85,6 +96,7 @@
         {
             canvas.height = 450;
             canvas.width = 350;
+            displayIt("canvas dimensions defined");
         }
         
         function clear()
@@ -92,6 +104,11 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
         
+        function displayIt(text)
+        {
+            display.append(text);
+            display.append('\n');
+        }
     })();
 </script>
 <style>
@@ -100,6 +117,13 @@
     border: 3px solid black;
     width: 350px;
     height: 450px;
+    padding-bottom: 10px;
+}
+#displayArea
+{
+    width: 380px;
+    height: 100px;
+    resize: none;
 }
 </style>
 </head>
@@ -107,5 +131,6 @@
     <div id="container">
         <canvas id="screen">your browser doesn't support HTML 5 :(</canvas>
     </div>
+    <textarea disabled id="displayArea"></textarea>
 </body>
 </html>

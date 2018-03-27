@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Try jQuery Online</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    (function(){
+        $(document).ready(main);
+        
+        var canvas;
+        var ctx;
+        
+        function main()
+        {
+            canvas = document.getElementById('screen');
+            ctx = canvas.getContext('2d');
+            
+            setCanvasDimensions();
+            
+            var piece = 
+            {
+                height: 10,
+                width: 10,
+                xPos: 160,
+                yPos: 425,
+                draw: function(){
+                    ctx.fillRect(this.xPos, this.yPos, this.height, this.width);
+                },
+            };
+            
+            piece.draw();
+            
+        }
+        
+        function setCanvasDimensions()
+        {
+            canvas.height = 450;
+            canvas.width = 350;
+        }
+        
+    })();
+</script>
+<style>
+#container
+{
+    border: 3px solid black;
+    width: 350px;
+    height: 450px;
+}
+</style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="screen">your browser doesn't support HTML 5 :(</canvas>
+    </div>
+</body>
+</html>
